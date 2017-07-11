@@ -1,0 +1,20 @@
+{
+  "name": "bentools/psr7-request-matcher",
+  "description": "A PSR-7 RequestMatcher interface for use into several projects.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "bpolaszek",
+      "email": "bpolaszek@gmail.com"
+    }
+  ],
+  "require": {
+    "psr/http-message": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "BenTools\\Psr7\\": "src"
+    }
+  }
+}
