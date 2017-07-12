@@ -35,3 +35,8 @@ Installation
 ------------
 
 > composer require bentools/psr7-request-matcher
+
+Tests
+-----
+
+> ./vendor/bin/phpunit
