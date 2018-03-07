@@ -5,15 +5,17 @@
 
 # PSR-7 Request Matcher
 
-This library is just composed of an interface to implement, to check wether or not a request matches some arbitrary conditions.
+This library is just composed of interfaces to implement, to check wether or not a request and/or a response match some arbitrary conditions.
 
-This interface provides no return type-hint and is therefore compatible from **PHP 5.3+**.
+These interfaces provide no return type-hint and is therefore compatible from **PHP 5.3+**.
 
-Example
--------
+Examples
+--------
+
+### Request matcher
 
 ```php
-namespace App\RequestMatcher;
+namespace App;
 
 use BenTools\Psr7\RequestMatcherInterface;
 use Psr\Http\Message\RequestInterface;
@@ -26,6 +28,50 @@ class ExampleOrgRequestMatcher implements RequestMatcherInterface
     public function matchRequest(RequestInterface $request)
     {
         return 'www.example.org' === $request->getUri()->getHost();
+    }
+
+}
+```
+
+### Response matcher
+
+```php
+namespace App;
+
+use BenTools\Psr7\ResponseMatcherInterface;
+use Psr\Http\Message\ResponseInterface;
+
+class TeapotResponseMatcher implements ResponseMatcherInterface
+{
+    /**
+     * @inheritdoc
+     */
+    public function matchResponse(ResponseInterface $response)
+    {
+        return 418 === $response->getStatusCode();
+    }
+
+}
+```
+
+### Transfer matcher
+
+```php
+namespace App;
+
+use BenTools\Psr7\TransferMatcherInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+
+class DummyTransferMatcher implements TransferMatcherInterface
+{
+    /**
+     * @inheritdoc
+     */
+    public function matchTransfer(RequestInterface $request, ResponseInterface $response)
+    {
+        return $request->hasHeader('Authorization')
+            && 'Welcome, human.' === (string) $response->getBody();
     }
 
 }
